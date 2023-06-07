@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
+  "esModuleInterop": true,
   "scripts": {
     "dev": "nodemon",
     "start": "npm run build & node dist/index.js",

@@ -1,11 +1,10 @@
-// import express, { Request, Response } from 'express';
 const express = require('express');
 
 const app = express();
 const port = 4000;
 
-app.get('/', (request: Request, response: Response) => {
-  response.end('Hello world12');
+app.get('/', (request, response) => {
+  response.send('Hello world12345');
 });
 
 app.listen(port, () => {

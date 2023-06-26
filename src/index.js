@@ -1,10 +1,14 @@
 const express = require('express');
 
-const app = express();
-const port = 4000;
+const positionService = require('./services/position.service');
 
-app.get('/', (request, response) => {
-  response.send('Hello world12345');
+const app = express();
+const port = 3003;
+
+app.get('/api/positions', (request, response) => {
+  const allPositions = positionService.getAllPositions();
+  response.json(allPositions);
+  //response.send('Hello world12345');
 });
 
 app.listen(port, () => {

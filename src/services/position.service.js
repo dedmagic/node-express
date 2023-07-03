@@ -1,7 +1,8 @@
 const positionRepository = require('../repositories/position.repository');
 
-function getAllPositions() {
-  const allPositiions = positionRepository.getAllPositions();
+async function getAllPositions() {
+  const allPositiions = await positionRepository.getAllPositions();
+  console.debug({ service: allPositiions });
   return allPositiions;
 }
 

@@ -7,11 +7,9 @@ const port = 3003;
 
 console.clear();
 
-app.get('/api/positions', async (request, response) => {
+app.get('/api/positions', async (req, res) => {
   const allPositions = await positionService.getAllPositions();
-  console.debug({ constroller: allPositions });
-  response.json(allPositions);
-  //response.send('Hello world12345');
+  res.json(allPositions);
 });
 
 app.listen(port, () => {

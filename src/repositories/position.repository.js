@@ -24,20 +24,24 @@ const { dbName } = require('../config');
 //   return allPositions;
 // }
 
-async function getAllPositions() {
-  const db = new sqlite.Database(dbName, (err) => {
-    console.error(err);
-    return null;
-  });
+const db = new sqlite.Database(dbName, (error) => {
+  if (error) {
+    console.error(error);
+    process.exit(10);
+  }
+});
 
-  let allPositions = [];
-  const sql = 'SELECT * FROM positions';
-  await db.all(sql, (err, rows) => {
-    console.debug({ repository: rows });
-    allPositions = [...rows];
+async function getAllPositions() {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM positions';
+    db.all(sql, (error, rows) => {
+      if (error) {
+        reject(error);
+      }
+      const allPositions = [...rows];
+      resolve(allPositions);
+    });
   });
-  db.close();
-  return allPositions;
 }
 
 module.exports = { getAllPositions };

@@ -13,4 +13,20 @@ async function getAllPositions() {
   });
 }
 
-module.exports = { getAllPositions };
+async function getPosition(id) {
+  try {
+    return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM positions WHERE id = $id';
+      db.get(sql, { $id: id }, (error, row) => {
+        if (error) {
+          reject(error);
+        }
+        resolve(row);
+      });
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+module.exports = { getAllPositions, getPosition };

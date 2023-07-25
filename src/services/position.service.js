@@ -5,4 +5,9 @@ async function getAllPositions() {
   return allPositiions;
 }
 
-module.exports = { getAllPositions };
+async function getPosition(id) {
+  const position = await positionRepository.getPosition(id);
+  return position;
+}
+
+module.exports = { getAllPositions, getPosition };

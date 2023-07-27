@@ -14,19 +14,30 @@ async function getAllPositions() {
 }
 
 async function getPosition(id) {
-  try {
-    return new Promise((resolve, reject) => {
-      const sql = 'SELECT * FROM positions WHERE id = $id';
-      db.get(sql, { $id: id }, (error, row) => {
-        if (error) {
-          reject(error);
-        }
-        resolve(row);
-      });
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM positions WHERE id = $id';
+    db.get(sql, { $id: id }, (error, row) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(row);
     });
-  } catch (error) {
-    console.error(error);
-  }
+  });
 }
 
-module.exports = { getAllPositions, getPosition };
+async function createPosition(position) {
+  const { name, parentId } = position;
+
+  return new Promise((resolve, reject) => {
+    const sql =
+      'INSERT INTO positions(name, parentId) VALUES($name, $parentId)';
+    db.run(sql, { $name: name, $parentId: parentId }, (error) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(true);
+    });
+  });
+}
+
+module.exports = { getAllPositions, getPosition, createPosition };

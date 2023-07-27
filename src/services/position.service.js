@@ -10,4 +10,10 @@ async function getPosition(id) {
   return position;
 }
 
-module.exports = { getAllPositions, getPosition };
+async function createPosition(position) {
+  // TODO: добавить валидацию
+  const operationResult = await positionRepository.createPosition(position);
+  return operationResult;
+}
+
+module.exports = { getAllPositions, getPosition, createPosition };

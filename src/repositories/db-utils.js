@@ -2,9 +2,7 @@ const sqlite = require('sqlite3').verbose();
 const { dbName } = require('../config');
 
 function openDatabase() {
-  return new sqlite.Database(dbName, sqlite.OPEN_READONLY, (err) =>
-    openDatabaseErrorHandler(err)
-  );
+  return new sqlite.Database(dbName, (err) => openDatabaseErrorHandler(err));
 }
 
 function openDatabaseErrorHandler(err) {

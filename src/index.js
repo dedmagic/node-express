@@ -1,9 +1,12 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const positionService = require('./services/position.service');
 
 const app = express();
-const port = 3003;
+const PORT = 3003;
+
+app.use(bodyParser.json());
 
 app.get('/api/positions/:id', async (req, res) => {
   const { id } = req.params;
@@ -16,6 +19,12 @@ app.get('/api/positions', async (req, res) => {
   res.json(allPositions);
 });
 
-app.listen(port, () => {
-  console.info(`Server run on port ${port}`);
+app.post('/api/positions', async (req, res) => {
+  const position = req.body;
+  const result = await positionService.createPosition(position);
+  res.json(result);
+});
+
+app.listen(PORT, () => {
+  console.info(`Server run on port ${PORT}`);
 });

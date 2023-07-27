@@ -11,9 +11,18 @@ async function getPosition(id) {
 }
 
 async function createPosition(position) {
-  // TODO: добавить валидацию
+  if (!isPositionValid(position)) {
+    return false;
+  }
   const operationResult = await positionRepository.createPosition(position);
   return operationResult;
+}
+
+function isPositionValid(position) {
+  if (!position.name) {
+    return false;
+  }
+  return true;
 }
 
 module.exports = { getAllPositions, getPosition, createPosition };

@@ -1,4 +1,4 @@
-const { db } = require('./db-utils');
+const { db, command } = require('./db-utils');
 
 async function getAllPositions() {
   return new Promise((resolve, reject) => {
@@ -26,18 +26,29 @@ async function getPosition(id) {
 }
 
 async function createPosition(position) {
-  const { name, parentId } = position;
+  const sql = `INSERT INTO positions(name, parentId)
+               VALUES($name, $parentId)`;
 
-  return new Promise((resolve, reject) => {
-    const sql =
-      'INSERT INTO positions(name, parentId) VALUES($name, $parentId)';
-    db.run(sql, { $name: name, $parentId: parentId }, (error) => {
-      if (error) {
-        reject(error);
-      }
-      resolve(true);
-    });
-  });
+  const { name, parentId } = position;
+  const params = { $name: name, $parentId: parentId };
+
+  return await command(sql, params);
 }
 
-module.exports = { getAllPositions, getPosition, createPosition };
+async function updatePosition(position) {
+  const sql = `UPDATE positions
+               SET name = $name, parentId = $parentId
+               WHERE id = $id`;
+
+  const { id, name, parentId } = position;
+  const params = { $id: id, $name: name, $parentId: parentId };
+
+  return await command(sql, params);
+}
+
+module.exports = {
+  getAllPositions,
+  getPosition,
+  createPosition,
+  updatePosition,
+};

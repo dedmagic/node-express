@@ -25,6 +25,12 @@ app.post('/api/positions', async (req, res) => {
   res.json(result);
 });
 
+app.put('/api/positions', async (req, res) => {
+  const position = req.body;
+  const result = await positionService.updatePosition(position);
+  res.json(result);
+});
+
 app.listen(PORT, () => {
   console.info(`Server run on port ${PORT}`);
 });

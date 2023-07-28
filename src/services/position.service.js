@@ -18,6 +18,14 @@ async function createPosition(position) {
   return operationResult;
 }
 
+async function updatePosition(position) {
+  if (!isPositionValid(position)) {
+    return false;
+  }
+  const operationResult = await positionRepository.updatePosition(position);
+  return operationResult;
+}
+
 function isPositionValid(position) {
   if (!position.name) {
     return false;
@@ -25,4 +33,9 @@ function isPositionValid(position) {
   return true;
 }
 
-module.exports = { getAllPositions, getPosition, createPosition };
+module.exports = {
+  getAllPositions,
+  getPosition,
+  createPosition,
+  updatePosition,
+};

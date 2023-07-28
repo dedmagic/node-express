@@ -1,22 +1,19 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const positionRouter = require('./routing/position.routing');
 const positionService = require('./services/position.service');
 
 const app = express();
 const PORT = 3003;
 
 app.use(bodyParser.json());
+app.use(positionRouter);
 
 app.get('/api/positions/:id', async (req, res) => {
   const { id } = req.params;
   const position = await positionService.getPosition(id);
   res.json(position);
-});
-
-app.get('/api/positions', async (req, res) => {
-  const allPositions = await positionService.getAllPositions();
-  res.json(allPositions);
 });
 
 app.post('/api/positions', async (req, res) => {

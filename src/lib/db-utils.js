@@ -14,18 +14,6 @@ function openDatabaseErrorHandler(err) {
 
 const db = openDatabase();
 
-async function command(sql, params) {
-  return new Promise((resolve, reject) => {
-    db.run(sql, params, (error) => {
-      if (error) {
-        reject(error);
-      }
-      resolve(true);
-    });
-  });
-}
-
 module.exports = {
   db,
-  command,
 };
